@@ -1,0 +1,76 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        rose: {
+          50: '#fff1f2',
+          100: '#ffe4e6',
+          200: '#fecdd3',
+          300: '#fda4af',
+          400: '#fb7185',
+          500: '#f43f5e',
+          600: '#e11d48',
+          700: '#be123c',
+          800: '#9f1239',
+          900: '#881337',
+        },
+        blush: {
+          50: '#fdf6f5',
+          100: '#faeaea',
+          200: '#f5d0cc',
+          300: '#edada6',
+          400: '#e08176',
+          500: '#d4594e',
+          600: '#c04038',
+          700: '#a1312b',
+          800: '#852b27',
+          900: '#6e2724',
+        },
+        gold: {
+          50: '#fdfaf3',
+          100: '#faf2dc',
+          200: '#f4e2af',
+          300: '#eccf7a',
+          400: '#e3b84a',
+          500: '#d4a017',
+          600: '#b8820f',
+          700: '#97640e',
+          800: '#7c4f12',
+          900: '#684213',
+        },
+        cream: {
+          50: '#fefdfb',
+          100: '#fdfaf4',
+          200: '#faf4e6',
+          300: '#f5ecd3',
+          400: '#edddb8',
+          500: '#e2ca98',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.4s ease-out',
+        'slide-in-right': 'slideInRight 0.3s ease-out',
+      },
+      keyframes: {
+        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        slideInRight: { '0%': { opacity: '0', transform: 'translateX(100%)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+      },
+      boxShadow: {
+        'luxury': '0 4px 30px rgba(0,0,0,0.08)',
+        'luxury-lg': '0 8px 60px rgba(0,0,0,0.12)',
+        'card': '0 2px 12px rgba(0,0,0,0.06)',
+        'card-hover': '0 8px 32px rgba(0,0,0,0.12)',
+      },
+    },
+  },
+  plugins: [],
+}
