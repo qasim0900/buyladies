@@ -1,19 +1,9 @@
 import { Component } from 'react'
 
 /**
- * FE-002 FIX: React Error Boundary
+ * React Error Boundary — Graceful Luxury Recovery
  * Catches unhandled JS exceptions anywhere in the component tree and
- * renders a graceful fallback instead of a blank page.
- *
- * Usage:
- *   <ErrorBoundary>
- *     <MyComponent />
- *   </ErrorBoundary>
- *
- *   or with a custom fallback:
- *   <ErrorBoundary fallback={<p>Something went wrong.</p>}>
- *     <MyComponent />
- *   </ErrorBoundary>
+ * renders a brand-consistent dark luxury fallback instead of a blank page.
  */
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -27,7 +17,6 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ errorInfo })
-    // In production this would forward to Sentry / Datadog
     console.error('[ErrorBoundary] Caught unhandled error:', error, errorInfo)
   }
 
@@ -45,47 +34,222 @@ export default class ErrorBoundary extends Component {
     }
 
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
-        <div className="max-w-md w-full text-center">
-          <div className="mb-6">
-            <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.07 16.5C2.3 17.333 3.262 19 4.802 19z" />
-              </svg>
+      <div
+        className="min-h-screen bg-[#0D0D0D] text-[#F5F0E8] flex flex-col selection:bg-[#C9A84C] selection:text-[#0D0D0D]"
+        style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+      >
+        {/* Subtle grid texture */}
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            pointerEvents: 'none',
+            opacity: 0.03,
+            backgroundImage:
+              'repeating-linear-gradient(0deg,#fff 0,#fff 1px,transparent 1px,transparent 40px),' +
+              'repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 40px)',
+          }}
+        />
+
+        {/* Nav */}
+        <nav
+          className="relative z-10 flex items-center justify-between px-10 py-7"
+          style={{ borderBottom: '1px solid #1E1E1E' }}
+        >
+          <a
+            href="/"
+            style={{
+              fontFamily: '"Playfair Display", Georgia, serif',
+              fontSize: '1.5rem',
+              letterSpacing: '0.15em',
+              color: '#F5F0E8',
+              textDecoration: 'none',
+            }}
+          >
+            BUY<span style={{ color: '#C9A84C' }}>LADIES</span>
+          </a>
+        </nav>
+
+        {/* Main */}
+        <div className="flex-1 flex items-center justify-center px-6 relative z-10">
+          <div className="w-full max-w-md text-center">
+            {/* Ornament */}
+            <div className="flex items-center justify-center gap-3 mb-10">
+              <div style={{ height: 1, width: 48, background: '#2A2A2A' }} />
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  border: '1px solid rgba(201,168,76,0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <svg
+                  style={{ width: 20, height: 20, color: '#C9A84C' }}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z"
+                  />
+                </svg>
+              </div>
+              <div style={{ height: 1, width: 48, background: '#2A2A2A' }} />
             </div>
-            <h2 className="font-serif text-2xl text-gray-900 mb-2">Something went wrong</h2>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              An unexpected error occurred. Our team has been notified.
+
+            {/* Eyebrow */}
+            <p
+              style={{
+                color: '#C9A84C',
+                fontSize: '0.6875rem',
+                letterSpacing: '0.35em',
+                textTransform: 'uppercase',
+                marginBottom: '1.25rem',
+              }}
+            >
+              An Unplanned Intermission
             </p>
-          </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <button
-              onClick={this.handleReset}
-              className="px-6 py-2.5 bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-colors"
+            {/* Heading */}
+            <h1
+              style={{
+                fontFamily: '"Playfair Display", Georgia, serif',
+                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontWeight: 500,
+                marginBottom: '1rem',
+                lineHeight: 1.25,
+                color: '#F5F0E8',
+              }}
             >
-              Try again
-            </button>
-            <button
-              onClick={() => window.location.href = '/'}
-              className="px-6 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors"
-            >
-              Go home
-            </button>
-          </div>
+              We've lost our
+              <br />
+              <span style={{ fontStyle: 'italic', color: '#C9A84C' }}>footing.</span>
+            </h1>
 
-          {import.meta.env.DEV && this.state.error && (
-            <details className="mt-6 text-left">
-              <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-600">
-                Error details (dev only)
-              </summary>
-              <pre className="mt-2 p-3 bg-gray-900 text-red-400 text-xs rounded overflow-auto max-h-48">
-                {this.state.error.toString()}
-                {this.state.errorInfo?.componentStack}
-              </pre>
-            </details>
-          )}
+            {/* Body */}
+            <p
+              style={{
+                color: '#5A5A5A',
+                fontSize: '0.875rem',
+                lineHeight: 1.75,
+                marginBottom: '3rem',
+                maxWidth: '20rem',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+            >
+              Something unexpected unravelled behind the scenes.
+              Our artisans are already at work mending it.
+            </p>
+
+            {/* Recovery actions */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={this.handleReset}
+                style={{
+                  padding: '0.875rem 2rem',
+                  border: '1px solid #C9A84C',
+                  color: '#C9A84C',
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.25em',
+                  textTransform: 'uppercase',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#C9A84C'
+                  e.currentTarget.style.color = '#0D0D0D'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = '#C9A84C'
+                }}
+              >
+                Try Again
+              </button>
+              <a
+                href="/"
+                style={{
+                  padding: '0.875rem 2rem',
+                  border: '1px solid #2A2A2A',
+                  color: '#7A7A7A',
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.25em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s',
+                  display: 'inline-block',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#C9A84C'
+                  e.currentTarget.style.color = '#C9A84C'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#2A2A2A'
+                  e.currentTarget.style.color = '#7A7A7A'
+                }}
+              >
+                Return Home
+              </a>
+            </div>
+
+            {/* Dev error details */}
+            {import.meta.env.DEV && this.state.error && (
+              <details style={{ marginTop: '2.5rem', textAlign: 'left' }}>
+                <summary
+                  style={{
+                    fontSize: '0.7rem',
+                    color: '#3A3A3A',
+                    cursor: 'pointer',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Error details (dev only)
+                </summary>
+                <pre
+                  style={{
+                    marginTop: '0.75rem',
+                    padding: '0.75rem',
+                    background: '#111111',
+                    border: '1px solid #2A2A2A',
+                    color: '#C9A84C',
+                    fontSize: '0.7rem',
+                    overflowX: 'auto',
+                    maxHeight: '12rem',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {this.state.error.toString()}
+                  {this.state.errorInfo?.componentStack}
+                </pre>
+              </details>
+            )}
+          </div>
+        </div>
+
+        {/* Footer strip */}
+        <div
+          className="relative z-10 text-center py-5"
+          style={{ borderTop: '1px solid #1E1E1E' }}
+        >
+          <p
+            style={{
+              color: '#2A2A2A',
+              fontSize: '0.625rem',
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Heritage · Craft · Elegance
+          </p>
         </div>
       </div>
     )
