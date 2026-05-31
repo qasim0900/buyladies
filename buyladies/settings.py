@@ -37,7 +37,7 @@ SECRET_KEY = os.environ.get(
     'django-insecure-dev-only-CHANGE-IN-PRODUCTION-a8f3k2m9x1p4q7r5s6t0u3v8w2y!'
 )
 DEBUG = os.environ.get('DEBUG', 'true').lower() in ('true', '1', 'yes')
-ALLOWED_HOSTS = [h.strip() for h in os.environ.get('ALLOWED_HOSTS', '*').split(',')]
+ALLOWED_HOSTS = ['*']
 
 # ---------------------------------------------------------------------------
 # Applications
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'reviews',
     'banners',
     'coupons',
+    'seeds',
 ]
 
 # ---------------------------------------------------------------------------

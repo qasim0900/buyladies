@@ -1,8 +1,17 @@
-from rest_framework import generics, status, permissions
+"""
+reviews/views.py  —  Presentation Layer
+HTTP adapters only. All review rules live in ReviewService.
+"""
+
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from .models import Review
-from .serializers import ReviewSerializer, CreateReviewSerializer
-from products.models import Product
+from rest_framework.views import APIView
+
+from .repositories import ReviewRepository
+from .serializers import CreateReviewSerializer, ReviewSerializer
+from .services import ReviewService
+
+_svc = ReviewService(ReviewRepository())
 
 
 class ProductReviewListView(generics.ListAPIView):
@@ -10,24 +19,25 @@ class ProductReviewListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        return Review.objects.filter(
-            product__slug=self.kwargs['product_slug'],
-            is_approved=True
-        ).select_related('user').order_by('-created_at')
+        return _svc.get_product_reviews(self.kwargs["product_slug"])
 
 
-class CreateReviewView(generics.CreateAPIView):
-    serializer_class = CreateReviewSerializer
+class CreateReviewView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def perform_create(self, serializer):
-        product = generics.get_object_or_404(Product, slug=self.kwargs['product_slug'])
-        serializer.save(user=self.request.user, product=product)
+    def post(self, request, product_slug):
+        serializer = CreateReviewSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    def create(self, request, *args, **kwargs):
-        if Review.objects.filter(
-            product__slug=kwargs['product_slug'],
-            user=request.user
-        ).exists():
-            return Response({'detail': 'You have already reviewed this product.'}, status=status.HTTP_400_BAD_REQUEST)
-        return super().create(request, *args, **kwargs)
+        result = _svc.submit_review(
+            user=request.user,
+            product_slug=product_slug,
+            data=serializer.validated_data,
+        )
+        if result.is_failure:
+            return Response(
+                {"detail": result.error}, status=status.HTTP_400_BAD_REQUEST
+            )
+        return Response(
+            ReviewSerializer(result.value).data, status=status.HTTP_201_CREATED
+        )
